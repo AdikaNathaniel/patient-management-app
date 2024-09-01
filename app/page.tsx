@@ -1,4 +1,4 @@
-import PatientForm from "@/components/forms/PatientForm";
+import PatientForm from "@/components/forms/PatientForm"
 import { Button } from "@/components/ui/button";
 import { LucideLink } from "lucide-react"; // Changed to LucideLink to avoid confusion
 import Link from "next/link"; // Corrected import for Next.js Link
@@ -38,7 +38,10 @@ export default function Home() {
       />
     </div>
   );
-}
+};
+
+
+
 
 /*
 Building a healthcare platform that streamlines patient registration, appointment scheduling, and medical records, and learn to implement complex forms and SMS notifications.

@@ -1,12 +1,12 @@
-      import React from 'react'
-      import Image from 'next/image'
+import React from 'react'
+import Image from 'next/image'
 import { Button } from './ui/button'
 
 
 interface ButtonProps {
-    isLoading : boolean,
-    className : string,
-    children : React.ReactNode,
+    isLoading: boolean,
+    className?: string,
+    children: React.ReactNode,
 }
 
 
@@ -29,10 +29,12 @@ interface ButtonProps {
 />
     Loading...
                         </div>
-                    ):children} 
+                    ):
+                    (children
+                    ) } 
 
             </Button>
-        )
-      }
+        );
+      };
 
-export default SubmitButton
+export default SubmitButton;

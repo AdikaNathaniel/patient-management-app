@@ -1,8 +1,12 @@
+'use client';
 import PatientForm from "@/components/forms/PatientForm"
 import { Button } from "@/components/ui/button";
 import { LucideLink } from "lucide-react"; // Changed to LucideLink to avoid confusion
 import Link from "next/link"; // Corrected import for Next.js Link
 import Image from "next/image";
+
+
+
 
 export default function Home() {
   return (

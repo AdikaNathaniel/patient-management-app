@@ -4,14 +4,18 @@ import { Button } from "@/components/ui/button";
 import { LucideLink } from "lucide-react"; // Changed to LucideLink to avoid confusion
 import Link from "next/link"; // Corrected import for Next.js Link
 import Image from "next/image";
+import PassKeyModal from "@/components/PasskeyModal";
 
 
 
 
-export default function Home() {
+export default function Home({ searchParams}: SearchParamProps) {
+     const isAdmin = searchParams.admin === 'true';
   return (
     <div className="flex h-screen max-h-screen">
-      {/* OTP Verification */}
+        { isAdmin && < PassKeyModal/>}
+
+
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[496px]">
           <Image

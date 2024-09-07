@@ -6,9 +6,12 @@ import RegisterForm from '@/components/forms/RegisterForm'
 import { getUser } from '@/app/lib/actions/patient.actions'
 
 
+
+
 const Register =  async ( { params : { userId }} : SearchParamProps) => {
 
   const user = await getUser(userId);
+
       return(
         <div className="flex h-screen max-h-screen">
         <section className="remove-scrollbar container">
@@ -40,3 +43,6 @@ const Register =  async ( { params : { userId }} : SearchParamProps) => {
 }
 
 export default Register
+
+// 78901adikacpen2025_computer--twillo password
+// Recovery Code- HMJ18RMJ8LNWXPFZ873DCY6J

@@ -1,7 +1,7 @@
 'use server'
-import { APPOINTMENT_COLLECTION_ID, DATABASE_ID, databases } from "@/lib/appwrite.config";
+import { APPOINTMENT_COLLECTION_ID, DATABASE_ID, databases, messaging } from "@/lib/appwrite.config";
 import { ID, Query } from "node-appwrite";
-import { parseStringify } from "../utils";
+import { formatDateTime, parseStringify } from "../utils";
 import NewAppointment from "@/app/patients/[userId]/new-appointment/page";
 import { Appointment } from "@/app/types/appwrite.types";
 import AppointmentForm from "@/components/forms/AppointmentForm";
@@ -71,24 +71,53 @@ const data = {
       }
 }
 
-export const updateAppointment = async ({ appointmentId, userId,appointment,type}:UpdateAppointmentParams) => {
-      try{
-         const updatedAppointment = await databases.updateDocument(
+export const updateAppointment = async ({ appointmentId, userId, appointment, type }: UpdateAppointmentParams) => {
+    try {
+        const updatedAppointment = await databases.updateDocument(
             DATABASE_ID!,
             APPOINTMENT_COLLECTION_ID!,
             appointmentId,
             appointment
-         )
+        );
 
-         if(!updatedAppointment){
-             throw new Error('Appointment Not Found');
-         }
+        if (!updatedAppointment) {
+            throw new Error('Appointment Not Found');
+        }
 
-         //SMS Notification
+        // Construct SMS Notification
+        let smsMessage;
+        if (type === 'schedule') {
+            smsMessage = `Hi, it's CarePulse Hospital. Your appointment has been scheduled for ${formatDateTime(appointment.schedule).dateTime} with Dr. ${appointment.primaryPhysician}.`;
+        } else {
+            smsMessage = `Hi, it's CarePulse Hospital. We regret to inform you that your appointment has been cancelled for the following reason: ${appointment.cancellationReason}`;
+        }
 
-         revalidatePath('/admin');
-         return parseStringify(updatedAppointment);
+        // Send SMS Notification
+        await sendSMSNotification(userId, smsMessage);
+
+        // Revalidate cache
+        revalidatePath('/admin');
+
+        return parseStringify(updatedAppointment);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+
+export const sendSMSNotification = async (userId: string, content: string) => {
+      try{
+        const message = await messaging.createSms(
+             ID.unique(),
+             content,
+             [],
+             [userId]
+           )
+            return parseStringify(message);
       }catch(error){
         console.log(error);
       }
 }
+
+

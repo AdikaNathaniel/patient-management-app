@@ -68,3 +68,6 @@ The **Patient Management System** is a comprehensive healthcare platform designe
 - 
 ## Conclusion
 This Patient Management System leverages modern web technologies to simplify and improve healthcare management processes. With future enhancements like Sentry integration, the platform aims to provide a secure, reliable, and seamless experience for all users.
+
+🎉 **Curious to see the app in action?** 
+🎥 Click https://patient-management-7cpxif67s-adikanathaniels-projects.vercel.app to have a  live demo and remember to book your next medical appointment on this CarePulse Patient Management System!
